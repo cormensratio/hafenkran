@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  
+  hafenkran-db:
+    image: "postgres:12.0"
+    container_name: "hafenkran-db"
+    environment:
+      - POSTGRES_USER=hafenkran
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=hafenkran
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  hafenkran-userservice:
+    build: ./hafenkran-userservice
+
+  hafenkran-clusterservice:
+    build: ./hafenkran-clusterservice
+  
+  hafenkran-reportingservice:
+    build: ./hafenkran-reportingservice
+  
+  hafenkran-client:
+    build: ./hafenkran-client
