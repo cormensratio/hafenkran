@@ -1,0 +1,9 @@
+[submodule "hafenkran-clusterservice"]
+	path = hafenkran-clusterservice
+	url = https://cnaccgit.fim.uni-passau.de/ep2019/ds02-team/hafenkran-clusterservice.git
+[submodule "hafenkran-client"]
+	path = hafenkran-client
+	url = https://cnaccgit.fim.uni-passau.de/ep2019/ds02-team/hafenkran-client.git
+[submodule "hafenkran-reportingservice"]
+	path = hafenkran-reportingservice
+	url = https://cnaccgit.fim.uni-passau.de/ep2019/ds02-team/hafenkran-reportingservice.git
