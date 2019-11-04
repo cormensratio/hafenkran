@@ -13,5 +13,5 @@ It consists / requires the following components:
 ## Setup
 - The docker-compose file in this repository builds and deploys every service according to their configuration.
 - A central Postgres instance is also deployed.
-- The Kubernetes cluster needs to managed seperately. Please take a look at the config options of the ClusterService for setup.
+- The Kubernetes cluster has to be managed separately. Please take a look at the config options of the ClusterService for setup.
 - Generally: when further configuration is required the repositories of the respective service should be consulted.
