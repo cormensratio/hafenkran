@@ -15,13 +15,29 @@ services:
       - db-data:/var/lib/postgresql/data
 
   hafenkran-userservice:
-    build: ./hafenkran-userservice
+    container_name: hafenkran-userservice
+    build:
+      context: .
+      dockerfile: ./hafenkran-userservice/Dockerfile.userservice
+    expose:
+      - "8081"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - hafenkran-db
 
   hafenkran-clusterservice:
-    build: ./hafenkran-clusterservice
-  
-  hafenkran-reportingservice:
-    build: ./hafenkran-reportingservice
-  
-  hafenkran-client:
-    build: ./hafenkran-client
+    container_name: hafenkran-clusterservice
+    build:
+      context: .
+      dockerfile: ./hafenkran-clusterservice/Dockerfile.clusterservice
+    expose:
+      - "8082"
+    ports:
+      - "8082:8082"
+    depends_on:
+      - hafenkran-db
+
+volumes:
+  db-data: {}
+
