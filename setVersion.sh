@@ -7,6 +7,7 @@ function setMavenVersion {
     git checkout develop
     git pull
     mvn versions:set -DgenerateBackupPoms=false -DnewVersion=$version
+    git add pom.xml
     git commit -m "update version to $version"
     git tag v$version
 }
