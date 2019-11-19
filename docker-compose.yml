@@ -17,24 +17,22 @@ services:
   hafenkran-userservice:
     container_name: hafenkran-userservice
     build:
-      context: .
-      dockerfile: ./hafenkran-userservice/Dockerfile.userservice
-    expose:
-      - "8081"
+      context: ./hafenkran-userservice
     ports:
       - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
     depends_on:
       - hafenkran-db
 
   hafenkran-clusterservice:
     container_name: hafenkran-clusterservice
     build:
-      context: .
-      dockerfile: ./hafenkran-clusterservice/Dockerfile.clusterservice
-    expose:
-      - "8082"
+      context: ./hafenkran-clusterservice
     ports:
       - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
     depends_on:
       - hafenkran-db
 
