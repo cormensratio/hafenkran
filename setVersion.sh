@@ -15,3 +15,6 @@ function setMavenVersion {
 setMavenVersion hafenkran-clusterservice
 setMavenVersion hafenkran-userservice
 setMavenVersion hafenkran-reportingservice
+
+cd ./hafenkran-client
+npm version --no-git-tag-version $version

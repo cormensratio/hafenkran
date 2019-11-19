@@ -36,6 +36,16 @@ services:
     depends_on:
       - hafenkran-db
 
+  hafenkran-client:
+    container_name: hafenkran-client
+    image: node:alpine
+    volumes:
+      - ./hafenkran-client:/hafenkran-client
+    working_dir: /hafenkran-client
+    ports:
+      - "8080:8080"
+    command: npm start
+
 volumes:
   db-data: {}
 
