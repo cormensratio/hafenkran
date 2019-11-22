@@ -30,23 +30,13 @@ services:
     container_name: hafenkran-clusterservice
     build:
       context: ./hafenkran-clusterservice
-        dockerfile: Dockerfile.clusterservice
+      dockerfile: Dockerfile.clusterservice
     ports:
       - "8082:8082"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
     depends_on:
       - hafenkran-db
-
-  hafenkran-client:
-    container_name: hafenkran-client
-    image: node:alpine
-    volumes:
-      - ./hafenkran-client:/hafenkran-client
-    working_dir: /hafenkran-client
-    ports:
-      - "8080:8080"
-    command: npm start
 
 volumes:
   db-data: {}
