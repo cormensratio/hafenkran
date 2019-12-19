@@ -35,6 +35,7 @@ services:
       - "8083:8083"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
+      - CLUSTERSERVICE_PATH=http://hafenkran-clusterservice:8082
     depends_on:
       - hafenkran-db
 
