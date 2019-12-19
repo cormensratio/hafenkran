@@ -38,18 +38,6 @@ services:
     depends_on:
       - hafenkran-db
 
-  hafenkran-proxy:
-    container_name: hafenkran-proxy 
-    hostname: localhost
-    build:
-        context: ./hafenkran-proxy
-        dockerfile: Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - hafenkran-userservice
-      - hafenkran-reportingservice
-
 volumes:
   db-data: {}
 
