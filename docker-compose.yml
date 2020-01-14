@@ -1,7 +1,7 @@
-version: '3'
+version: '2'
 
 services:
-  
+
   hafenkran-db:
     image: "postgres:12.0"
     container_name: "hafenkran-db"
@@ -26,6 +26,22 @@ services:
     depends_on:
       - hafenkran-db
 
+  hafenkran-clusterservice:
+    container_name: hafenkran-clusterservice
+    build:
+      context: ./hafenkran-clusterservice
+      dockerfile: Dockerfile.clusterservice
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
+      - MOCKKUBERNETESCLIENT=true
+      - DOCKERCLIENT_CERTPATH=
+      - DOCKERCLIENT_HOST=tcp://hafenkran-dind:2375
+    depends_on:
+      - hafenkran-db
+      - hafenkran-dind
+
   hafenkran-reportingservice:
     container_name: hafenkran-reportingservice
     build:
@@ -39,6 +55,16 @@ services:
     depends_on:
       - hafenkran-db
 
+  hafenkran-dind:
+    container_name: hafenkran-dind
+    image: docker:18.09.9-dind
+    ports:
+      - "2375:2375"
+      - "2376:2376"
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+      - DOCKER_DRIVER=overlay2
+
 volumes:
   db-data: {}
-
