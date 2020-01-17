@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=hafenkran
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
 
@@ -35,7 +35,7 @@ services:
       - "8082:8082"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
-      - MOCKKUBERNETESCLIENT=true
+      - MOCKKUBERNETESCLIENT=false
       - DOCKERCLIENT_CERTPATH=
       - DOCKERCLIENT_HOST=tcp://hafenkran-dind:2375
     depends_on:
@@ -77,6 +77,20 @@ services:
       - USER_SERVICE_URL=http://hafenkran-userservice:8081
       - CLUSTER_SERVICE_URL=http://hafenkran-userservice:8082
       - REPORTING_SERVICE_URL=http://hafenkran-userservice:8083
+  
+  hafenkran-proxy:
+    container_name: hafenkran-proxy
+    hostname: hafenkran
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - hafenkran-client
+      - hafenkran-userservice
+      - hafenkran-clusterservice
+      - hafenkran-reportingservice
 
 volumes:
   db-data: {}
