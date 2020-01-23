@@ -6,9 +6,9 @@ services:
     image: "postgres:12.0"
     container_name: "hafenkran-db"
     environment:
-      - POSTGRES_USER=hafenkran
-      - POSTGRES_PASSWORD=test
-      - POSTGRES_DB=hafenkran
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -22,7 +22,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
     depends_on:
       - hafenkran-db
 
@@ -34,10 +34,13 @@ services:
     ports:
       - "8082:8082"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
       - MOCKKUBERNETESCLIENT=false
       - DOCKERCLIENT_CERTPATH=
-      - DOCKERCLIENT_HOST=tcp://hafenkran-dind:2375
+      - DOCKERCLIENT_HOST=${DOCKERCLIENT_HOST}
+      - USER-SERVICE-URI=${USER-SERVICE-URI}
+      - CLUSTER-SERVICE-URI=${CLUSTER-SERVICE-URI}
+      - REPORTING-SERVICE-URI=${REPORTING-SERVICE-URI}
     depends_on:
       - hafenkran-db
       - hafenkran-dind
@@ -50,8 +53,10 @@ services:
     ports:
       - "8083:8083"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://hafenkran-db:5432/hafenkran
-      - CLUSTERSERVICE_PATH=http://hafenkran-clusterservice:8082
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - USER-SERVICE-URI=${USER-SERVICE-URI}
+      - CLUSTER-SERVICE-URI=${CLUSTER-SERVICE-URI}
+      - REPORTING-SERVICE-URI=${REPORTING-SERVICE-URI}
     depends_on:
       - hafenkran-db
 
@@ -74,9 +79,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - USER_SERVICE_URL=http://hafenkran-userservice:8081
-      - CLUSTER_SERVICE_URL=http://hafenkran-userservice:8082
-      - REPORTING_SERVICE_URL=http://hafenkran-userservice:8083
+      - USER_SERVICE_URL=${USER-SERVICE-URI}
+      - CLUSTER_SERVICE_URL=${CLUSTER-SERVICE-URI}
+      - REPORTING_SERVICE_URL=${REPORTING-SERVICE-URI}
   
   hafenkran-proxy:
     container_name: hafenkran-proxy
