@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
 
@@ -41,6 +41,7 @@ services:
       - USER-SERVICE-URI=${USER-SERVICE-URI}
       - CLUSTER-SERVICE-URI=${CLUSTER-SERVICE-URI}
       - REPORTING-SERVICE-URI=${REPORTING-SERVICE-URI}
+      - KUBERNETES_CONFIG_LOAD-DEFAULT=false
     depends_on:
       - hafenkran-db
       - hafenkran-dind
