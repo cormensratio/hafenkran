@@ -13,6 +13,7 @@ It consists / requires the following components:
 ## Setup
 - The build.sh script allows you to automatically build the latest version of every submodule
 - The setVersion.sh script is used for updating the version of every service
+- The start.sh script starts all services, the database and the client when you don't want to use docker for your deployment (e.g. when running minikube)
 - The docker-compose file in this repository builds deploys every service according to their configuration.
 - A central Postgres instance is also deployed.
 - The Kubernetes cluster has to be managed separately. Please take a look at the config options of the ClusterService for setup.
